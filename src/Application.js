@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Navigation, NavigationLink } from './Navigation';
 import { Page } from './Page';
 
-function Application() {
+export function Application() {
   return (
     <main className="h-screen">
       <h1 className="text-3xl font-bold bg-indigo-300 p-4 border-b-2 border-indigo-400">
