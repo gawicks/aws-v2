@@ -5,14 +5,20 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
 
-    const handleLogin = () => {
-        // Simulating a simple authentication process
-        if (username === 'user' && password === 'password') {
+    const handleLogin = async () => {
+        const url = "https://vl9uwqbv0h.execute-api.us-west-1.amazonaws.com/authenticate";
+        const res = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+        if (res.ok) {
             setLoggedIn(true);
-            // Here you might redirect the user or perform other actions upon successful login
-            console.log('Login successful!');
-        } else {
-            console.log('Login failed. Please check your credentials.');
+        }
+        else {
+            alert('Invalid username or password');
         }
     };
 
