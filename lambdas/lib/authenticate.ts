@@ -1,10 +1,15 @@
-import AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk';
 
-export const handler = async (event) => {
+export const handler = async (event: {
+    body: string
+}) => {
     try {
         console.log(`event ${JSON.stringify(event)}`);
 
-        const payload = JSON.parse(event.body);
+        const payload: {
+            username: string;
+            password: string;
+        } = JSON.parse(event.body);
         const username = payload.username;
         const password = payload.password;
 
@@ -15,7 +20,6 @@ export const handler = async (event) => {
         const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
             region: 'us-west-1'
         });
-
         const authParams = {
             AuthFlow: 'USER_PASSWORD_AUTH',
             ClientId: '663criu3vf45sp1tg4a9q9of6',
@@ -26,6 +30,9 @@ export const handler = async (event) => {
         };
 
         const authResponse = await cognitoIdentityServiceProvider.initiateAuth(authParams).promise();
+        if (!authResponse.AuthenticationResult) {
+            throw new Error()
+        }
 
         return {
             statusCode: 200,

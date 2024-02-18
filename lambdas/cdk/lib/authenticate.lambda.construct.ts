@@ -12,7 +12,7 @@ export class AuthenticateLambda extends Construct {
             timeout: Duration.seconds(1), // takes ~300ms
             handler: 'handler',
             // CDK finds the package and modules by convention and packages them up using esbuild.
-            entry: path.join(__dirname, "../../lib/authenticate.js")
+            entry: path.join(__dirname, "../../lib/authenticate.ts")
         })
     }
 }
