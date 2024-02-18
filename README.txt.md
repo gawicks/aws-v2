@@ -50,3 +50,38 @@ To authenticate users, create a Cognito user pool
 You can create / manage `End Users` in Cognito seperate to IAM which manages your AWS users
 Create a user here
 And create an `App client` to access the user pool from lambda. Grab it's `Client id`
+=========
+pnpm i -g aws-cdk
+=========
+cdk init --language typescript - This bootstraps a cdk project for you in Typescript
+cdk has 3 concepts to bear in mind - App (cdk/bin/cdk.ts) / Stack/ Construct 
+App is a collection of CloudFormation templates
+Stack correspond to a single CF template and it's atomic unit of deployment in CDK
+Construct is a CDK only concept that maps to a Resource (Lambda function / S3 bucket etc.) 
+Define your Constructs and Stack (This example create a single Lambda Fn construct in a single stack)
+Import your Stacks and initialize them in your App (cdk/bin/cdk.ts)
+Structure your lambda code like this
+lambdas
+    - lib
+        authenticate.js
+        mfa.js
+    package.json
+    package-lock.json
+    node_modules
+Create an instance of `NodejsFunction` in your `Construct`
+`NodejsFunction` will automatically pick up the fact that the package and modules are shared between the lambdas in `lib`
+Make sure you install `esbuild` as a `devDependency` on the common package. CDK will use this as a bundler and bundle your lambda and module code automatically.
+Run `cdk synth` from within the cdk project. This generates the CF templates and bundle your code.
+Run `cdk bootstrap` this will setup some foundational resources that CDK needs (such as an s3 bucket)
+Ensure you've configure the `aws cli` properly earlier with `aws configure`
+Run `cdk deploy` this will deploy your stack on AWS
+Done!
+I've found that the AWS lambda testing console cannot be used with this particular lambda since it's built to respond to `API gateway`, which has a specfic `event` format.
+I've now hooked the CDK lambda to API gateway and it works perfect!
+TODO: Define API gateway resource in CDK.
+=========
+Install AWS serverless application model cli
+curl "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip" -o "aws-sam-cli-linux-x86_64.zip"
+unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+sudo ./sam-installation/install
+=========

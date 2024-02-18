@@ -2,6 +2,8 @@ import AWS from 'aws-sdk';
 
 export const handler = async (event) => {
     try {
+        console.log(`event ${JSON.stringify(event)}`);
+
         const payload = JSON.parse(event.body);
         const username = payload.username;
         const password = payload.password;
