@@ -12,7 +12,8 @@ export class AuthenticateLambda extends Construct {
             timeout: Duration.seconds(1), // takes ~300ms
             handler: 'handler',
             // CDK finds the package and modules by convention and packages them up using esbuild.
-            entry: path.join(__dirname, "../../lib/authenticate.ts")
+            // It's not very well documented how cdk does it, but it seems to pick up package.json s in the same order as normal node.js package resolution (current dir then parent dir and so on)
+            entry: path.join(__dirname, "../../lambdas/authenticate/authenticate.ts")
         })
     }
 }

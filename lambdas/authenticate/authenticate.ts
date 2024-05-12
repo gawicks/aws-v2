@@ -1,11 +1,11 @@
 import * as AWS from 'aws-sdk';
-
+import jwt from "jsonwebtoken";
 export const handler = async (event: {
     body: string
 }) => {
     try {
         console.log(`event ${JSON.stringify(event)}`);
-
+        console.log(jwt)
         const payload: {
             username: string;
             password: string;

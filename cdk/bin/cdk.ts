@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { AuthenticateLambdaStack } from '../lib/authenticate.lambda stack';
+import { AuthenticateLambdaStack } from '../lib/authenticate.lambda.stack';
 
 const app = new cdk.App();
 new AuthenticateLambdaStack(app, 'AuthenticateLambdaStack', {

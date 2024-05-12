@@ -11,6 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1535.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
     "esbuild": "^0.20.0"
   }
 }
