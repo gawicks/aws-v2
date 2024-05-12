@@ -3,9 +3,12 @@ import { Construct } from "constructs"
 import { Function, Runtime, Code } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as path from "path"
+
+// AuthenticateLambda is a higher level construct that uses NodejsFunction
 export class AuthenticateLambda extends Construct {
     constructor(scope: Construct, id: string) {
         super(scope, id)
+        // NodejsFunction is also a construct 
         const authLambda = new NodejsFunction(this, 'AuthenticateLambda', {
             runtime: Runtime.NODEJS_18_X,
             memorySize: 512, // takes ~200mb
@@ -17,3 +20,4 @@ export class AuthenticateLambda extends Construct {
         })
     }
 }
+
