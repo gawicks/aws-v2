@@ -121,6 +121,11 @@ I've found that the AWS lambda testing console cannot be used with this particul
 I've now hooked the CDK lambda to API gateway and it works perfect!
 TODO: Define API gateway resource in CDK.
 =========
+`cdk.json`'s context values or `cdk.context.json` is a cache of params from the cdk account.
+For e.x. in your stack if you uses `self.availability_zones`. Cdk will fetch these values from your aws account again which is expensive and could lead to double synth. to prevent this we use a context file. Which is a cache of these values.
+It also acts as a lock file for when values such as "latest Amazon Linux" is used in AMIs to lock down the version until you're ready to accept new values.
+This file need to be checked into source control and used in your pipelines. It could be deleted and recreated when necessary.
+=========
 Install AWS serverless application model cli
 curl "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip" -o "aws-sam-cli-linux-x86_64.zip"
 unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
