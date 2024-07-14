@@ -9,25 +9,25 @@ import * as path from "path";
 export class CDKTutorialStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
-        new Bucket(this, 'HarithaBucket', {
+        new Bucket(this, 'CDKTutorialBucket', {
             bucketName: 'haritha-bucket-120524',
             versioned: true,
             publicReadAccess: false,
             removalPolicy: RemovalPolicy.DESTROY
         })
-        new Table(this, 'HarithasDynamoDBTable', {
+        new Table(this, 'CDKTutorialDynamoDBTable', {
             tableName: 'haritha-dynamodb-table-120524',
             partitionKey: { name: 'id', type: AttributeType.STRING },
             sortKey: { name: 'timestamp', type: AttributeType.STRING },
             removalPolicy: RemovalPolicy.DESTROY
         })
-        const harithaLambda = new NodejsFunction(this, 'HarithaLambda', {
+        const harithaLambda = new NodejsFunction(this, 'CDKTutorialLambda', {
             functionName: 'haritha-lambda-120524',
             runtime: Runtime.NODEJS_18_X,
-            entry: '../lambdas/haritha-lambda/index.ts',
+            entry: '../lambdas/cdktutorial-lambda/index.ts',
             handler: 'handler',
         })
-        new Alarm(this, 'HarithaLambdaAlarm', {
+        new Alarm(this, 'CDKTutorialLambdaAlarm', {
             alarmName: 'haritha-lambda-alarm-120524',
             metric: harithaLambda.metricErrors(),
             threshold: 1,

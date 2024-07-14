@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { AuthenticateLambdaStack } from '../lib/authenticate.lambda.stack';
 import { CDKTutorialStack } from '../lib/cdkTutorial.stack';
+import { CDKTutorialStack1 } from '../lib/cdkTutorial1.stack';
 
 const app = new cdk.App();
 new AuthenticateLambdaStack(app, 'AuthenticateLambdaStack', {
@@ -21,3 +22,4 @@ new AuthenticateLambdaStack(app, 'AuthenticateLambdaStack', {
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
 new CDKTutorialStack(app, 'CDKTutorialStack', {})
+new CDKTutorialStack1(app, 'CDKTutorialStack1', {})
